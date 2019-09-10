@@ -14,6 +14,7 @@ class TimeToHour(TransformerMixin):
         return self
 
     def transform(self, X):
+        X = X.copy()
         day_seconds = 24 * 60 * 60
         hour_seconds = 60 * 60
         X['Hour'] = ((X['Time'] - self.midnight) % day_seconds) / hour_seconds
@@ -25,6 +26,7 @@ class AmountCentsOnly(TransformerMixin):
         return self
 
     def transform(self, X):
+        X = X.copy()
         X['Cents'] = (X['Amount'] % 1).round(2)
         return X
 
@@ -34,5 +36,6 @@ class Log1pAmount(TransformerMixin):
         return self
     
     def transform(self, X):
+        X = X.copy()
         X['Log1pAmount'] = np.log1p(X['Amount'])
         return X
