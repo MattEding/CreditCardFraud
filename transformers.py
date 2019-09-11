@@ -1,10 +1,14 @@
 import numpy as np
 import pandas as pd
 
+from sklearn.neighbors import LocalOutlierFactor
+from sklearn.base import BaseEstimator
 from sklearn.base import TransformerMixin
 
+from imblearn.base import BaseSampler
 
-class TimeToHour(TransformerMixin):
+
+class TimeToHour(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         bins = len(np.histogram_bin_edges(X['Time'], bins='auto'))
         cuts = pd.cut(X['Time'], bins)
@@ -21,7 +25,7 @@ class TimeToHour(TransformerMixin):
         return X
 
 
-class AmountCentsOnly(TransformerMixin):
+class AmountCentsOnly(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
 
@@ -31,7 +35,7 @@ class AmountCentsOnly(TransformerMixin):
         return X
 
 
-class Log1pAmount(TransformerMixin):
+class Log1pAmount(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         return self
     
